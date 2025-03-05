@@ -131,16 +131,16 @@ function get_release_name() {
 # ====
 function get_devel_name() {
     PREFIX=wazuh-indexer
-    COMMIT_HASH=$GIT_COMMIT
+    #COMMIT_HASH=$GIT_COMMIT
     # Add -min to the prefix if corresponds
     if "$IS_MIN"; then
         PREFIX="$PREFIX"-min
     fi
     # Generate composed commit hash
-    if [ -n "$PLUGINS_HASH" ] && [ -n "$REPORTING_HASH" ]; then
-        COMMIT_HASH="$GIT_COMMIT"-"$PLUGINS_HASH"-"$REPORTING_HASH"
-    fi
-    PACKAGE_NAME="$PREFIX"_"$VERSION"-"$REVISION"_"$SUFFIX"_"$COMMIT_HASH"."$EXT"
+    # if [ -n "$PLUGINS_HASH" ] && [ -n "$REPORTING_HASH" ]; then
+    #     COMMIT_HASH="$GIT_COMMIT"-"$PLUGINS_HASH"-"$REPORTING_HASH"
+    # fi
+    PACKAGE_NAME="$PREFIX"_"$VERSION"-"$REVISION"_"$SUFFIX"_latest."$EXT"
 }
 
 # ====
@@ -164,6 +164,6 @@ function main() {
     echo "$PACKAGE_NAME"
 }
 
-GIT_COMMIT=$(git rev-parse --short HEAD)
+#GIT_COMMIT=$(git rev-parse --short HEAD)
 VERSION=$(bash build-scripts/product_version.sh)
 main "${@}"
